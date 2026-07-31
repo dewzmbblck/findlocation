@@ -149,23 +149,14 @@ function drawWaButton() {
     
     ctx.save();
 
-    // --- DEBUG: Gambar Hitbox Klik (Kotak Merah Transparan) ---
-    ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
-    ctx.fillRect(
-        pos.x - WA_HIT_HALF_W, 
-        pos.y - WA_HIT_HALF_H, 
-        WA_HIT_HALF_W * 2, 
-        WA_HIT_HALF_H * 2
-    );
-
     // --- Teks Asli ---
-    ctx.shadowColor = 'rgba(0,0,0,0.7)';
+    ctx.shadowColor = 'rgba(0,0,0,0.2)';
     ctx.shadowBlur = 6;
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
     ctx.font = 'bold 20px system-ui, -apple-system, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('click me', pos.x, pos.y);
+    ctx.fillText('Activate The Overhead Target', pos.x, pos.y);
     
     ctx.restore();
 }
