@@ -146,23 +146,44 @@ function drawWaButton() {
     if (!waIsVisible()) return;
     const pos = waScreenPos();
     if (!pos) return;
+    
     ctx.save();
+
+    // --- DEBUG: Gambar Hitbox Klik (Kotak Merah Transparan) ---
+    ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+    ctx.fillRect(
+        pos.x - WA_HIT_HALF_W, 
+        pos.y - WA_HIT_HALF_H, 
+        WA_HIT_HALF_W * 2, 
+        WA_HIT_HALF_H * 2
+    );
+
+    // --- Teks Asli ---
     ctx.shadowColor = 'rgba(0,0,0,0.7)';
     ctx.shadowBlur = 6;
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
     ctx.font = 'bold 20px system-ui, -apple-system, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('click me', pos.x, pos.y);
+    
     ctx.restore();
 }
 
+// Opsi Terbaik: Sesuaikan fungsi pengecekan dengan offset atau gunakan bounding box yang konsisten
 function isPointInWaButton(screenX, screenY) {
     if (!waIsVisible()) return false;
     const pos = waScreenPos();
     if (!pos) return false;
-    return Math.abs(screenX - pos.x) <= WA_HIT_HALF_W &&
-           Math.abs(screenY - pos.y) <= WA_HIT_HALF_H;
+
+    // Jika area klik saat ini terlalu di atas, tambahkan offset Y pada pusat hitbox
+    // Atau sesuaikan rentang Y agar persis berada di tengah teks
+    const offsetY = 0; // Ubah nilai ini jika ada pergeseran visual (misal: +5 atau -5)
+
+    const insideX = Math.abs(screenX - pos.x) <= WA_HIT_HALF_W;
+    const insideY = Math.abs(screenY - (pos.y + offsetY)) <= WA_HIT_HALF_H;
+
+    return insideX && insideY;
 }
 
 function draw() {
